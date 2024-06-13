@@ -15,10 +15,14 @@ class Specialty(models.Model):
         return f"{self.name}"
 
 class Expert(models.Model):
+    GENDER = (
+        ('M', 'Male'),
+        ('F', 'Female'),
+    )
     user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE,
                                 related_name="expert")
     city = models.CharField(max_length=100)
-    gender = models.CharField(max_length=100)
+    gender = models.CharField(max_length=7, choices=GENDER, null=True, blank=True)
     specialty = models.ForeignKey(Specialty, related_name='specialty', on_delete=models.CASCADE, null=True, blank=True)
     is_verified = models.BooleanField(default=False)
     is_avaliable = models.BooleanField(default=False)
