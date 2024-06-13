@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.contrib.auth import get_user_model
 
 class User(AbstractUser):
     
@@ -7,7 +8,9 @@ class User(AbstractUser):
         return f"{self.email}"
 
 
-class HealthExpert(models.Model):
+class Expert(models.Model):
+    user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE,
+                                related_name="expert")
     city = models.CharField(max_length=100)
     gender = models.CharField(max_length=100)
     is_verified = models.BooleanField(default=False)
@@ -17,6 +20,8 @@ class HealthExpert(models.Model):
     date_joined = models.DateTimeField(auto_now_add=True)
 
 class Patient(models.Model):
+    user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE,
+                                related_name="patient")
     city = models.CharField(max_length=100)
     gender = models.CharField(max_length=100)
     last_login = models.DateTimeField(null=True)
@@ -24,6 +29,8 @@ class Patient(models.Model):
     date_joined = models.DateTimeField(auto_now_add=True)
 
 class Staff(models.Model):
+    user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE,
+                                related_name="staff")
     city = models.CharField(max_length=100)
     gender = models.CharField(max_length=100)
     last_login = models.DateTimeField(null=True)
