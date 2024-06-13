@@ -19,6 +19,7 @@ class Expert(models.Model):
                                 related_name="expert")
     city = models.CharField(max_length=100)
     gender = models.CharField(max_length=100)
+    specialty = models.ForeignKey(Specialty, related_name='specialty', on_delete=models.CASCADE, null=True, blank=True)
     is_verified = models.BooleanField(default=False)
     is_avaliable = models.BooleanField(default=False)
     last_avaliable_date = models.DateTimeField(null=True)
