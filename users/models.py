@@ -18,6 +18,9 @@ class Expert(models.Model):
     last_avaliable_date = models.DateTimeField(null=True)
     display_image = models.ImageField(upload_to='images/', null=True)
     date_joined = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f"{self.user}"
 
 class Patient(models.Model):
     user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE,
