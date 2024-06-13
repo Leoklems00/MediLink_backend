@@ -30,6 +30,9 @@ class Patient(models.Model):
     last_login = models.DateTimeField(null=True)
     display_image = models.ImageField(upload_to='images/', null=True)
     date_joined = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f"{self.user}"
 
 class Staff(models.Model):
     user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE,
@@ -39,6 +42,6 @@ class Staff(models.Model):
     last_login = models.DateTimeField(null=True)
     display_image = models.ImageField(upload_to='images/', null=True)
     date_joined = models.DateTimeField(auto_now_add=True)
-
-
-# Create your models here.
+    
+    def __str__(self):
+        return f"{self.user}"
