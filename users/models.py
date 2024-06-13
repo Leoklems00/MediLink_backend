@@ -8,6 +8,12 @@ class User(AbstractUser):
         return f"{self.email}"
 
 
+class Specialty(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return f"{self.name}"
+
 class Expert(models.Model):
     user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE,
                                 related_name="expert")
