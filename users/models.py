@@ -34,10 +34,14 @@ class Expert(models.Model):
         return f"{self.user}"
 
 class Patient(models.Model):
+    GENDER = (
+        ('M', 'Male'),
+        ('F', 'Female'),
+    )
     user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE,
                                 related_name="patient")
     city = models.CharField(max_length=100)
-    gender = models.CharField(max_length=100)
+    gender = models.CharField(max_length=7, choices=GENDER, null=True, blank=True)
     last_login = models.DateTimeField(null=True)
     display_image = models.ImageField(upload_to='images/', null=True)
     date_joined = models.DateTimeField(auto_now_add=True)
@@ -46,10 +50,14 @@ class Patient(models.Model):
         return f"{self.user}"
 
 class Staff(models.Model):
+    GENDER = (
+        ('M', 'Male'),
+        ('F', 'Female'),
+    )
     user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE,
                                 related_name="staff")
     city = models.CharField(max_length=100)
-    gender = models.CharField(max_length=100)
+    gender = models.CharField(max_length=7, choices=GENDER, null=True, blank=True)
     last_login = models.DateTimeField(null=True)
     display_image = models.ImageField(upload_to='images/', null=True)
     date_joined = models.DateTimeField(auto_now_add=True)
