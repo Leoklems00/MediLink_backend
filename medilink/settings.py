@@ -45,9 +45,9 @@ INSTALLED_APPS = [
     'rest_framework',
     #local
     'users.apps.UsersConfig',
-    'auth.apps.AuthConfig',
-    'cases.apps.CasesConfig',
-    'reviews.apps.ReviewsConfig',
+    # 'auth.apps.AuthConfig',
+    # 'cases.apps.CasesConfig',
+    # 'reviews.apps.ReviewsConfig',
 ]
 
 MIDDLEWARE = [
