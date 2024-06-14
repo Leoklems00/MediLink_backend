@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
     
 #     def __str__(self):
 #         return f"{self.email}"
-
+#
 
 class Specialty(models.Model):
     name = models.CharField(max_length=50)
