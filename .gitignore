@@ -4,3 +4,5 @@ db.sqlite3
 auth/
 cases/
 reviews/
+**/migrations/
+**/__pycache__/
