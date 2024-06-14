@@ -21,6 +21,7 @@ class Expert(models.Model):
     )
     user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE,
                                 related_name="expert")
+    country = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
     gender = models.CharField(max_length=7, choices=GENDER, null=True, blank=True)
     specialty = models.ForeignKey(Specialty, related_name='specialty', on_delete=models.CASCADE, null=True, blank=True)
@@ -40,6 +41,7 @@ class Patient(models.Model):
     )
     user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE,
                                 related_name="patient")
+    country = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
     gender = models.CharField(max_length=7, choices=GENDER, null=True, blank=True)
     last_login = models.DateTimeField(null=True)
@@ -56,6 +58,7 @@ class Staff(models.Model):
     )
     user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE,
                                 related_name="staff")
+    country = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
     gender = models.CharField(max_length=7, choices=GENDER, null=True, blank=True)
     last_login = models.DateTimeField(null=True)
