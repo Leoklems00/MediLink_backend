@@ -9,6 +9,7 @@ app_name = 'api'
 router = DefaultRouter()
 router.register(r'', Home)
 router.register(r'staff-profile', StaffViewSet)
+router.register(r'patient-profile', PatientViewSet)
 
 urlpatterns = [
     # path('', Home.as_view(), name='home'),
