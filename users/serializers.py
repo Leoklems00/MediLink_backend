@@ -1,9 +1,9 @@
 from rest_framework import serializers
-from .models import HealthExpert, Patient, Staff
+from .models import Expert, Patient, Staff
 
 class HealthExpertSerializer(serializers.ModelSerializer):
     class Meta:
-        model = HealthExpert
+        model = Expert
         fields = '__all__'
 
 class PatientSerializer(serializers.ModelSerializer):
