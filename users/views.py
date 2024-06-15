@@ -1,10 +1,56 @@
 from django.shortcuts import render
+from django.contrib.auth import authenticate, login
+from rest_framework import viewsets
 from django.http import JsonResponse, FileResponse, HttpResponse, HttpResponseRedirect, HttpRequest
 from django.views.generic import DetailView, View
+from django.http import JsonResponse
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.response import Response
+
+from .serializers import *
 
 # Create your views here.
 
-class Home(View):
+class Home(viewsets.ModelViewSet):
+    queryset = Expert.objects.all()
     def get(self, request):
         response = HttpResponse("Site is running") 
-        return response
+        # serializer_class = ItemSerializer
+
+
+class PatientViewSet(viewsets.ModelViewSet):
+    queryset = Patient.objects.all()
+    def get(self, request):
+        response = HttpResponse("Site is running") 
+        serializer_class = PatientSerializer
+
+class StaffViewSet(viewsets.ModelViewSet):
+    queryset = Staff.objects.all()
+    def get(self, request):
+        response = HttpResponse("Site is running") 
+        serializer_class = StaffSerializer
+        
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def sign_in(request):
+    username = request.data.get('username')
+    password = request.data.get('password')
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+        login(request, user)
+        return JsonResponse({'message': 'Login successful'})
+    else:
+        return JsonResponse({'error': 'Invalid credentials'}, status=400)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def view_profile(request):
+    user = request.user
+    return JsonResponse({
+        'username': user.username,
+        'email': user.email,
+        'first_name': user.first_name,
+        'last_name': user.last_name
+    })
