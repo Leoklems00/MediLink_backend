@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
+from rest_framework.views import APIView
 from rest_framework import viewsets
 from django.http import JsonResponse, FileResponse, HttpResponse, HttpResponseRedirect, HttpRequest
 from django.views.generic import DetailView, View
@@ -12,12 +13,11 @@ from .serializers import *
 
 # Create your views here.
 
-class Home(viewsets.ModelViewSet):
+class Home(viewsets.GenericViewSet):
     queryset = Expert.objects.all()
     def get(self, request):
         response = HttpResponse("Site is running") 
-        # serializer_class = ItemSerializer
-
+        return Response(response)
 
 class PatientViewSet(viewsets.ModelViewSet):
     queryset = Patient.objects.all()
