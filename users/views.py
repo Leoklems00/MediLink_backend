@@ -13,11 +13,23 @@ from .serializers import *
 
 # Create your views here.
 
-class Home(viewsets.GenericViewSet):
+class Home(View):
     queryset = Expert.objects.all()
+    serializer_class = ExpertSerializer # kind of data you need to accept to make a new user
+    permission_classes = [AllowAny]
+    
     def get(self, request):
-        response = HttpResponse("Site is running") 
-        return Response(response)
+        welcome_message = "Welcome to our homepage!"
+        experts = Expert.objects.all().order_by('-date_joined')[:5]
+        items = [{"name": e.user, "specialty": e.specialty} for e in experts]
+        
+        return JsonResponse({
+            "message": welcome_message,
+            "recent_experts": items
+        })
+        # response = HttpResponse("Site is running") 
+        
+        # return Response(response)
 
 class PatientViewSet(viewsets.ModelViewSet):
     queryset = Patient.objects.all()

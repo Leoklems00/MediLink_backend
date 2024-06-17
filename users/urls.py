@@ -6,12 +6,12 @@ from django.conf.urls.static import static
 from .views import *
 app_name = 'api'
 
-router = DefaultRouter()
-router.register(r'', Home)
-router.register(r'staff-profile', StaffViewSet)
-router.register(r'patient-profile', PatientViewSet)
+# router = DefaultRouter()
+# router.register(r'/', Home)
+# router.register(r'staff-profile/', StaffViewSet)
+# router.register(r'patient-profile/', PatientViewSet)
 
 urlpatterns = [
-    # path('', Home.as_view(), name='home'),
-    path("", include(router.urls)),
+    path('', Home.as_view(), name='home'),
+    # path("", include(router.urls)),
 ]
