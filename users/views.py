@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from rest_framework.views import APIView
-from rest_framework import viewsets
+from rest_framework import viewsets, generics
 from django.http import JsonResponse, FileResponse, HttpResponse, HttpResponseRedirect, HttpRequest
 from django.views.generic import DetailView, View
 from django.http import JsonResponse
@@ -31,7 +31,7 @@ class Home(View):
         
         # return Response(response)
 
-class PatientViewSet(viewsets.ModelViewSet):
+class PatientViewSet(generics.CreateAPIView):
     queryset = Patient.objects.all()
     def get(self, request):
         response = HttpResponse("Site is running") 
@@ -42,7 +42,14 @@ class StaffViewSet(viewsets.ModelViewSet):
     def get(self, request):
         response = HttpResponse("Site is running") 
         serializer_class = StaffSerializer
-        
+
+
+class CreatePatientView(generics.CreateAPIView):
+    queryset = Patient.objects.all()
+    # serializer_class = User
+    serializer_class = PatientSerializer # kind of data you need to accept to make a new user
+    permission_classes = [AllowAny]
+
 
 @api_view(['POST'])
 @permission_classes([AllowAny])

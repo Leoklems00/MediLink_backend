@@ -13,5 +13,6 @@ app_name = 'api'
 
 urlpatterns = [
     path('', Home.as_view(), name='home'),
+    path("patient/register/", CreatePatientView.as_view(), name="register_patient"),
     # path("", include(router.urls)),
 ]
