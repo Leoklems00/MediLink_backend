@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 from environs import Env
 
+# Optional settings for JWT
+from datetime import timedelta
+
 env = Env()
 env.read_env()
 
@@ -31,6 +34,20 @@ SECRET_KEY = "django-insecure-9u%_i+f%6h^hq+!tk=3@&zmwo0e86i*@4k22v_i73(&*8n0vw3
 DEBUG = True
 ALLOWED_HOSTS = ['*']
 
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",
+    ],
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+}
+
 
 # Application definition
 
@@ -45,7 +62,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     #local
-    'users.apps.UsersConfig',
+    'users',
+    # 'users.apps.UsersConfig',
     # 'auth.apps.AuthConfig',
     # 'cases.apps.CasesConfig',
     # 'reviews.apps.ReviewsConfig',
@@ -71,7 +89,10 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 # For security purposes, limit this to only the URLs you need
-CORS_ALLOW_CREDENTIALS = True
+# CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWS_CREDENTIALS = True
 
 ROOT_URLCONF = 'medilink.urls'
 
@@ -135,12 +156,6 @@ REST_FRAMEWORK = {
 }
 
 
-# Optional settings for JWT
-from datetime import timedelta
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-}
 
 
 # Internationalization

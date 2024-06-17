@@ -49,7 +49,22 @@ class CreatePatientView(generics.CreateAPIView):
     # serializer_class = User
     serializer_class = PatientSerializer # kind of data you need to accept to make a new user
     permission_classes = [AllowAny]
+    
 
+
+class ExpertProfileView(generics.ListCreateAPIView):
+    serializer_class = ExpertSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return Expert.objects.filter(user=user)
+
+    # def perform_create(self, serializer):
+    #     if serializer.is_valid():
+    #         serializer.save(author=self.request.user)
+    #     else:
+    #         print(serializer.errors)
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
