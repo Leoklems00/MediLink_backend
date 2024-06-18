@@ -1,30 +1,31 @@
- 
-
-# Set the base image to Python 3.9
-FROM python:3.11.0
+# Pull base image
+FROM python:3.12.2-slim-bookworm
 
 # Set environment variables
-ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 
-# Set the working directory to /app
+# Create and set work directory called `app`
 RUN mkdir -p /code
-# WORKDIR /app
 WORKDIR /code
 
-# Copy the requirements file into the container and install dependencies
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Install dependencies
+COPY requirements.txt /tmp/requirements.txt
 
-# Copy the application code into the container
-# COPY . .
+RUN set -ex && \
+pip install --upgrade pip && \
+pip install -r /tmp/requirements.txt && \
+rm -rf /root/.cache/
+
+# Copy local project
 COPY . /code/
 
-# Run database migrations
-RUN python manage.py migrate
+# Set the port number as an environment variable
+ARG PORT=8000
+ENV PORT $PORT
 
-# Expose port 8000 for the Django application
-EXPOSE 8000
+# Expose the given port
+EXPOSE $PORT
 
-# Start the Django development server
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Use gunicorn on the given port
+CMD gunicorn --bind :$PORT --workers 2 medilink.wsgi
