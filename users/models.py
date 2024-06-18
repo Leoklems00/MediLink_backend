@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 
 # class User(AbstractUser):
@@ -21,6 +21,7 @@ class Expert(models.Model):
     )
     user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE,
                                 related_name="expert", null=True, blank=True)
+    name = models.CharField(max_length=100, null=True, blank=True)
     country = models.CharField(max_length=100, null=True, blank=True)
     city = models.CharField(max_length=100, null=True, blank=True)
     gender = models.CharField(max_length=7, choices=GENDER, null=True, blank=True)
@@ -41,6 +42,7 @@ class Patient(models.Model):
     )
     user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE,
                                 related_name="patient", null=True, blank=True)
+    name = models.CharField(max_length=100, null=True, blank=True)
     country = models.CharField(max_length=100, null=True, blank=True)
     city = models.CharField(max_length=100, null=True, blank=True)
     gender = models.CharField(max_length=7, choices=GENDER, null=True, blank=True)
@@ -58,6 +60,7 @@ class Staff(models.Model):
     )
     user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE,
                                 related_name="staff", null=True, blank=True)
+    name = models.CharField(max_length=100, null=True, blank=True)
     country = models.CharField(max_length=100, null=True, blank=True)
     city = models.CharField(max_length=100, null=True, blank=True)
     gender = models.CharField(max_length=7, choices=GENDER, null=True, blank=True)

@@ -31,17 +31,41 @@ class Home(View):
         
         # return Response(response)
 
+class ExpertViewSet(generics.ListAPIView):
+    queryset = Expert.objects.all()
+    serializer_class = ExpertSerializer
+    permission_classes = [AllowAny]
+    # def get(self, request):
+    #     response = HttpResponse("Site is running") 
+    #     serializer_class = ExpertSerializer
+
+class ExpertDetail(generics.RetrieveAPIView):
+    queryset = Expert.objects.all()
+    serializer_class = ExpertSerializer
+    permission_classes = [AllowAny]
+
+
 class PatientViewSet(generics.CreateAPIView):
     queryset = Patient.objects.all()
     def get(self, request):
         response = HttpResponse("Site is running") 
         serializer_class = PatientSerializer
 
+class PatientDetail(generics.RetrieveAPIView):
+    queryset = Patient.objects.all()
+    serializer_class = PatientSerializer
 class StaffViewSet(viewsets.ModelViewSet):
     queryset = Staff.objects.all()
     def get(self, request):
         response = HttpResponse("Site is running") 
         serializer_class = StaffSerializer
+
+class CreateExpertView(generics.CreateAPIView):
+    queryset = Expert.objects.all()
+    # serializer_class = User
+    serializer_class = ExpertSerializer # kind of data you need to accept to make a new user
+    permission_classes = [AllowAny]
+    
 
 
 class CreatePatientView(generics.CreateAPIView):
