@@ -63,8 +63,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     #local
-    'users',
-    # 'users.apps.UsersConfig',
+    'users.apps.UsersConfig',
     # 'auth.apps.AuthConfig',
     # 'cases.apps.CasesConfig',
     # 'reviews.apps.ReviewsConfig',
