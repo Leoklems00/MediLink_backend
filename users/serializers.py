@@ -73,6 +73,13 @@ class PatientSerializer(serializers.ModelSerializer):
     #     return instance
 
 class StaffSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
     class Meta:
         model = Staff
-        fields = '__all__'
+        fields = fields = ["id", "name", "user"]
+    
+    def create(self, validated_data):
+        user_data = validated_data.pop('user')
+        user = UserSerializer.create(UserSerializer(), validated_data=user_data)
+        staff = Staff.objects.create(user=user, **validated_data)
+        return staff

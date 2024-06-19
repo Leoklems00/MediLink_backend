@@ -54,12 +54,19 @@ class PatientViewSet(generics.CreateAPIView):
 class PatientDetail(generics.RetrieveAPIView):
     queryset = Patient.objects.all()
     serializer_class = PatientSerializer
+    permission_classes = [AllowAny]
+    
 class StaffViewSet(viewsets.ModelViewSet):
     queryset = Staff.objects.all()
     def get(self, request):
         response = HttpResponse("Site is running") 
         serializer_class = StaffSerializer
 
+class StaffDetail(generics.RetrieveAPIView):
+    queryset = Staff.objects.all()
+    serializer_class = StaffSerializer
+    permission_classes = [AllowAny]
+    
 class CreateExpertView(generics.CreateAPIView):
     queryset = Expert.objects.all()
     # serializer_class = User
@@ -72,6 +79,13 @@ class CreatePatientView(generics.CreateAPIView):
     queryset = Patient.objects.all()
     # serializer_class = User
     serializer_class = PatientSerializer # kind of data you need to accept to make a new user
+    permission_classes = [AllowAny]
+
+
+class CreateStaffView(generics.CreateAPIView):
+    queryset = Staff.objects.all()
+    # serializer_class = User
+    serializer_class = StaffSerializer # kind of data you need to accept to make a new user
     permission_classes = [AllowAny]
     
 

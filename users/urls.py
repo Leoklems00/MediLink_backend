@@ -15,7 +15,11 @@ urlpatterns = [
     path('', Home.as_view(), name='home'),
     path("patient/register/", CreatePatientView.as_view(), name="register_patient"),
     path("expert/register/", CreateExpertView.as_view(), name="register_expert"),
+    path("staff/register/", CreateStaffView.as_view(), name="register_staff"),
     path("experts/", ExpertViewSet.as_view(), name="experts"),
     path('expert/<int:pk>/', ExpertDetail.as_view(), name='expert_detail'),
+    
+    path('patient/<int:pk>/', PatientDetail.as_view(), name='patient_detail'),
+    path('staff/<int:pk>/', StaffDetail.as_view(), name='staff_detail'),
     # path('api/', include(router.urls)),
 ]
