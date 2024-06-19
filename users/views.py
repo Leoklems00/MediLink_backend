@@ -45,22 +45,22 @@ class ExpertDetail(generics.RetrieveAPIView):
     permission_classes = [AllowAny]
 
 
-class PatientViewSet(generics.CreateAPIView):
+class PatientViewSet(generics.ListAPIView):
     queryset = Patient.objects.all()
-    def get(self, request):
-        response = HttpResponse("Site is running") 
-        serializer_class = PatientSerializer
+    serializer_class = PatientSerializer
+    permission_classes = [AllowAny]
+        
 
 class PatientDetail(generics.RetrieveAPIView):
     queryset = Patient.objects.all()
     serializer_class = PatientSerializer
     permission_classes = [AllowAny]
     
-class StaffViewSet(viewsets.ModelViewSet):
+class StaffViewSet(generics.ListAPIView):
     queryset = Staff.objects.all()
-    def get(self, request):
-        response = HttpResponse("Site is running") 
-        serializer_class = StaffSerializer
+    serializer_class = StaffSerializer
+    permission_classes = [AllowAny]
+        
 
 class StaffDetail(generics.RetrieveAPIView):
     queryset = Staff.objects.all()
