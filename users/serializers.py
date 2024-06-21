@@ -13,20 +13,16 @@ class UserSerializer(serializers.ModelSerializer):
         email = validated_data['email']
         try:
             user = User.objects.get(email=email)
-            if user:
-                pass
-            else:
-                username = email[:3] + str(random.randint(1000, 9999))
-                user = User(
-                    email=email,
-                    username=username
-                )
-                user.set_password(validated_data['password'])
-                user.save()
-                return user
-            
-        except:
             pass
+        except:
+            username = email[:3] + str(random.randint(1000, 9999))
+            user = User(
+                email=email,
+                username=username
+            )
+            user.set_password(validated_data['password'])
+            user.save()
+            return user
         
 
     # def update(self, instance, validated_data):
