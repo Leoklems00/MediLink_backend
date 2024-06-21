@@ -19,6 +19,8 @@ urlpatterns = [
     path("experts/", ExpertViewSet.as_view(), name="experts"),
     path('expert/<int:pk>/', ExpertDetail.as_view(), name='expert_detail'),
     
+    path("patients/", PatientViewSet.as_view(), name="patients"),
+    
     path('patient/<int:pk>/', PatientDetail.as_view(), name='patient_detail'),
     path('staff/<int:pk>/', StaffDetail.as_view(), name='staff_detail'),
     # path('api/', include(router.urls)),
