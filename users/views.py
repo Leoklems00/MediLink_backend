@@ -24,7 +24,7 @@ class Home(View):
     def get(self, request):
         welcome_message = "Welcome to our homepage!"
         experts = Expert.objects.all().order_by('-date_joined')[:5]
-        items = [{"name": e.user, "specialty": e.specialty} for e in experts]
+        items = [{"name": e.user.username, "specialty": e.specialty} for e in experts]
         
         return JsonResponse({
             "message": welcome_message,
@@ -50,7 +50,9 @@ class GetAuthUserView(APIView):
 class GetPatientView(APIView):
     permission_classes = [AllowAny]
     def get(self, request):
+        print("running get patient")
         user = self.request.user
+        print("User patient is :",user)
         patient = Patient.objects.get(user=user)
         print(user.username)
         return Response({'email':user.email,
@@ -75,10 +77,12 @@ class PatientViewSet(generics.ListAPIView):
     queryset = Patient.objects.all()
     serializer_class = PatientSerializer
     permission_classes = [AllowAny]
-    # def get(self, request):
-    #     response = HttpResponse("Site is running") 
-    #     serializer_class = PatientSerializer
-
+    def get(self, request):
+        patients = self.serializer_class
+        print(patients) 
+        for i,j in patients.data.items():
+            print(i," : ",j)
+            # print(i.user.username)
 class PatientDetail(generics.RetrieveAPIView):
     queryset = Patient.objects.all()
     serializer_class = PatientSerializer

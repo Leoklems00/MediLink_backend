@@ -17,6 +17,8 @@ urlpatterns = [
     path('api/get-auth-data/', GetAuthUserView.as_view(), name='get-auth-user'),
     path('api/get-patient/', GetPatientView.as_view(), name='get-patient'),
     
+    path('api/get-user/', GetPatientView.as_view(), name='get-patient'),
+    
     path("patient/register/", CreatePatientView.as_view(), name="register_patient"),
     path("expert/register/", CreateExpertView.as_view(), name="register_expert"),
     path("staff/register/", CreateStaffView.as_view(), name="register_staff"),
