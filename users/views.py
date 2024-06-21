@@ -77,11 +77,11 @@ class PatientViewSet(generics.ListAPIView):
     queryset = Patient.objects.all()
     serializer_class = PatientSerializer
     permission_classes = [AllowAny]
-    def get(self, request):
-        patients = self.serializer_class
-        print(patients) 
-        for i,j in patients.data.items():
-            print(i," : ",j)
+    # def get(self, request):
+    #     patients = self.serializer_class
+    #     print(patients) 
+    #     for i,j in patients.data.items():
+    #         print(i," : ",j)
             # print(i.user.username)
 class PatientDetail(generics.RetrieveAPIView):
     queryset = Patient.objects.all()
