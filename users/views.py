@@ -36,7 +36,7 @@ class GetAuthUserView(APIView):
     
     permission_classes = [AllowAny]
     def get(self, request):
-        email = request.data.email
+        email = request.data.get("email")
         try:
             user = User.objects.get(email=email)
             return Response({'username':user.username})
