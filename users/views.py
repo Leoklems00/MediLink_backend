@@ -36,6 +36,7 @@ class GetAuthUserView(APIView):
     
     permission_classes = [AllowAny]
     def get(self, request):
+        print("data : ",request.data)
         email = request.data.get("email")
         print("email : ", email)
         try:
