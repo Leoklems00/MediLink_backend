@@ -1,13 +1,15 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from rest_framework.views import APIView
-from rest_framework import viewsets, generics
+from rest_framework import viewsets, generics, status
 from django.http import JsonResponse, FileResponse, HttpResponse, HttpResponseRedirect, HttpRequest
 from django.views.generic import DetailView, View
 from django.http import JsonResponse
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from .serializers import *
 from rest_framework.response import Response
+from djangorestframework_simplejwt import authentication
 
 from .serializers import *
 
@@ -30,6 +32,16 @@ class Home(View):
         # response = HttpResponse("Site is running") 
         
         # return Response(response)
+
+
+class GetPatientView(APIView):
+    
+    def get(self, request):
+        user = self.request.user
+        patient = Patient.objects.get(user=user)
+        print(user.username)
+        return Response({'email':user.email,
+                         'name': patient.name,'id': patient.id})
 
 class ExpertViewSet(generics.ListAPIView):
     queryset = Expert.objects.all()
