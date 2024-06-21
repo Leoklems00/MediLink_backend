@@ -34,6 +34,7 @@ class Home(View):
 
 class GetAuthUserView(APIView):
     
+    permission_classes = [AllowAny]
     def get(self, request):
         email = request.data.email
         try:
