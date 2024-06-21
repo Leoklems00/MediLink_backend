@@ -11,14 +11,23 @@ class UserSerializer(serializers.ModelSerializer):
     
     def create(self, validated_data):
         email = validated_data['email']
-        username = email[:3] + str(random.randint(1000, 9999))
-        user = User(
-            email=email,
-            username=username
-        )
-        user.set_password(validated_data['password'])
-        user.save()
-        return user
+        try:
+            user = User.objects.get(email=email)
+            if user:
+                pass
+            else:
+                username = email[:3] + str(random.randint(1000, 9999))
+                user = User(
+                    email=email,
+                    username=username
+                )
+                user.set_password(validated_data['password'])
+                user.save()
+                return user
+            
+        except:
+            pass
+        
 
     # def update(self, instance, validated_data):
     #     instance.email = validated_data.get('email', instance.email)
