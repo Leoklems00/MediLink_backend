@@ -41,7 +41,8 @@ class GetPatientView(APIView):
         patient = Patient.objects.get(user=user)
         print(user.username)
         return Response({'email':user.email,
-                         'name': patient.name,'id': patient.id})
+                         'name': patient.name,
+                         'id': patient.id})
 
 class ExpertViewSet(generics.ListAPIView):
     queryset = Expert.objects.all()
