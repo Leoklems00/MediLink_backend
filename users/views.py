@@ -48,7 +48,7 @@ class GetAuthUserView(APIView):
             return Response({'error':"error"})
 
 class GetPatientView(APIView):
-    
+    permission_classes = [AllowAny]
     def get(self, request):
         user = self.request.user
         patient = Patient.objects.get(user=user)
