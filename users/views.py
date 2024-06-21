@@ -39,8 +39,10 @@ class GetAuthUserView(APIView):
         email = request.data.get("email")
         try:
             user = User.objects.get(email=email)
+            print("user : ",user)
             return Response({'username':user.username})
         except :
+            print("error")
             return Response({'error':"error"})
 
 class GetPatientView(APIView):
@@ -104,6 +106,13 @@ class CreatePatientView(generics.CreateAPIView):
     # serializer_class = User
     serializer_class = PatientSerializer # kind of data you need to accept to make a new user
     permission_classes = [AllowAny]
+    # def get(self, request):
+    #     patient = serializer_class
+    #     try:
+    #         user = User.objects.get(email=email)
+    #         return Response({'username':user.username})
+    #     except :
+    #         return Response({'error':"error"})
 
 
 class CreateStaffView(generics.CreateAPIView):
