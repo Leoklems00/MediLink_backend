@@ -9,6 +9,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from .serializers import *
 from rest_framework.response import Response
+from django.contrib.auth.models import User
 # from djangorestframework_simplejwt import authentication
 
 from .serializers import *
@@ -29,10 +30,17 @@ class Home(View):
             "message": welcome_message,
             "recent_experts": items
         })
-        # response = HttpResponse("Site is running") 
-        
-        # return Response(response)
 
+
+class GetAuthUserView(APIView):
+    
+    def get(self, request):
+        email = request.data.email
+        try:
+            user = User.objects.get(email=email)
+            return Response({'username':user.username})
+        except :
+            return Response({'error':"error"})
 
 class GetPatientView(APIView):
     
