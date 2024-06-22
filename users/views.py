@@ -87,7 +87,15 @@ class PatientDetail(generics.RetrieveAPIView):
     queryset = Patient.objects.all()
     serializer_class = PatientSerializer
     permission_classes = [AllowAny]
-    
+    def get(self, request):
+        print("running get patient")
+        user = self.request.user
+        print("User patient is :",user)
+        patient = Patient.objects.get(user=user)
+        print(user.username)
+        return Response({'email':user.email,
+                         'name': patient.name})
+
 class StaffViewSet(viewsets.ModelViewSet):
     queryset = Staff.objects.all()
     def get(self, request):
